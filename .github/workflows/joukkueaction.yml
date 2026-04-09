@@ -16,20 +16,7 @@ jobs: # The jobs that run in this workflow
       # pull-request: write
 
     
-   # if: github.event_name == 'issues' && github.event.action == 'closed'
     steps: # The "steps" section contains the individual tasks that will be performed in this job.
-      - name: Comment hwen issue is resolved # The name of the step
-        uses: actions/github-script@v6 # This step uses the "actions/github-script" action to execute a script that adds labels to the issue.
-        with:
-          script: | # The script calls the GitHub REST API to add labels to the issue.
-            github.rest.issues.addLabels({
-              if: github.event_name == 'issues' && github.event.action == 'closed'
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: 'This issue is resolved!'
-            })
-
       - name: Congratulate him for opening his/her first pull request
         uses: actions/github-script@v7
         with:
