@@ -1,4 +1,4 @@
-name: Comment issue and congratulate first pull request #the name of the workflow
+name: Comment issue #the name of the workflow
 on: # This action will trigger when an issue is reopened or opened.
   issues:
     types:
@@ -13,15 +13,12 @@ jobs: # The jobs that run in this workflow
       # pull-request: write
 
     
-    if: github.event_name == 'issues' && github.event.action == 'closed'
     steps: # The "steps" section contains the individual tasks that will be performed in this job.
       - name: Comment hwen issue is resolved # The name of the step
-        uses: actions/github-script@v6 # This step uses the "actions/github-script" action to execute a script that adds labels to the issue.
+        if: github.event.action == 'closed'
+        uses: peter-evans/create-or-update-comment@v1 # This step uses the "actions/github-script" action to execute a script that adds labels to the issue.
         with:
-          script: | # The script calls the GitHub REST API to add labels to the issue.
-            github.rest.issues.addLabels({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: 'This issue is resolved!'
-            })
+              issue_number: ${{github.event.issue.number}},
+              body: |
+                This issue is resolved!
+            
