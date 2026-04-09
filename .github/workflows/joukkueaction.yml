@@ -13,7 +13,7 @@ jobs: # The jobs that run in this workflow
     runs-on: ubuntu-latest # This job will run on the latest version of Ubuntu.
     permissions: # This job requires write access to issues in order to add labels and comment.
       issues: write
-      pull-request: write
+      # pull-request: write
 
     
     if: github.event_name == 'issues' && github.event.action == 'closed'
