@@ -29,7 +29,7 @@ jobs: # The jobs that run in this workflow
               body: 'This issue is resolved!'
             })
 
-    steps:
+    # steps:
       - name: Congratulate him for opening his/her first pull request
         uses: actions/github-script@v7
         with:
