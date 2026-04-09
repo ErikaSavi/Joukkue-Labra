@@ -18,7 +18,7 @@ jobs: # The jobs that run in this workflow
         if: github.event.action == 'closed'
         uses: peter-evans/create-or-update-comment@v1 # This step uses the "actions/github-script" action to execute a script that adds labels to the issue.
         with:
-              issue_number: ${{ github.event.issue.number }}
-              body: |
-                This issue is resolved!
+            issue-number: ${{ github.event.issue.number }}
+            body: |
+              This issue is resolved!
             
