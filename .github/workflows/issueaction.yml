@@ -1,0 +1,30 @@
+name: Comment issue and congratulate first pull request #the name of the workflow
+on: # This action will trigger when an issue is reopened or opened.
+  issues:
+    types:
+      - opened
+      - closed
+  pull_request:
+    types:
+      -opened
+      -created
+jobs: # The jobs that run in this workflow
+  label_issues: # the first job is named as label_issues
+    runs-on: ubuntu-latest # This job will run on the latest version of Ubuntu.
+    permissions: # This job requires write access to issues in order to add labels and comment.
+      issues: write
+      # pull-request: write
+
+    
+    if: github.event_name == 'issues' && github.event.action == 'closed'
+    steps: # The "steps" section contains the individual tasks that will be performed in this job.
+      - name: Comment hwen issue is resolved # The name of the step
+        uses: actions/github-script@v6 # This step uses the "actions/github-script" action to execute a script that adds labels to the issue.
+        with:
+          script: | # The script calls the GitHub REST API to add labels to the issue.
+            github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'This issue is resolved!'
+            })
